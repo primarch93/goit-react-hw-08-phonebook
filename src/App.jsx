@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts } from '../redux/selectors';
-import { fetchContacts } from 'redux/operations';
+import { selectContacts } from './redux/contacts/selectors';
+import { fetchContacts } from 'redux/contacts/operations';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Layout } from 'components/Layout/Layout';
 import { Section } from 'components/Section/Section';
-import { AddContactForm } from './AddContactForm/AddContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { ContactFilter } from './ContactFilter/ContactFilter';
-import { Container, Title } from './Section/Section.styled';
+import { AddContactForm } from './components/AddContactForm/AddContactForm';
+import { ContactList } from './components/ContactList/ContactList';
+import { ContactFilter } from './components/ContactFilter/ContactFilter';
+import { Container, Title } from './components/Section/Section.styled';
 
 export const App = () => {
   const contacts = useSelector(selectContacts);

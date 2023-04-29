@@ -1,8 +1,8 @@
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from '../../redux/selectors';
-import { addContact } from '../../redux/operations';
+import { selectContacts } from '../../redux/contacts/selectors';
+import { addContact } from '../../redux/contacts/operations';
 import { BiErrorCircle } from 'react-icons/bi';
 import { toast } from 'react-toastify';
 import { getRandomColor } from '../../utils/getRandomColor';

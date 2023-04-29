@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectFilterValue } from '../../redux/selectors';
+import { selectFilterValue } from '../../redux/contacts/selectors';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { ContactItem } from '../ContactItem/ContactItem';

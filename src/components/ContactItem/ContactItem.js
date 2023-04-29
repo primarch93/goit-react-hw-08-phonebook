@@ -5,7 +5,7 @@ import {
   deleteContact,
   editContact,
   toggleFavorite,
-} from '../../redux/operations';
+} from '../../redux/contacts/operations';
 import { RiDeleteBinLine } from 'react-icons/ri';
 /* import { IoIosCall } from 'react-icons/io'; */
 import { BsStar, BsStarFill } from 'react-icons/bs';
