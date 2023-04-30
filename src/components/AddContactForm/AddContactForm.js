@@ -5,7 +5,6 @@ import { selectContacts } from '../../redux/contacts/selectors';
 import { addContact } from '../../redux/contacts/operations';
 import { BiErrorCircle } from 'react-icons/bi';
 import { toast } from 'react-toastify';
-/* import { getRandomColor } from '../../utils/getRandomColor'; */
 import {
   InputContainer,
   Button,
@@ -38,8 +37,6 @@ export const AddContactForm = () => {
     const contact = {
       name: values.name,
       number: values.number,
-      /*       colors: getRandomColor(),
-      isFavourite: false, */
     };
 
     const contactExists = contacts.some(item => {

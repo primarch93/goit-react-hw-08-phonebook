@@ -39,27 +39,14 @@ export const addContact = createAsyncThunk(
   }
 );
 
-/* export const toggleFavorite = createAsyncThunk(
-  'contacts/toggleFavorite',
-  async (contact, { rejectWithValue }) => {
-    try {
-      const response = await axios.patch(`/contacts/${contact.id}`, contact);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
 export const editContact = createAsyncThunk(
   'contacts/editContact',
-  async (contact, { rejectWithValue }) => {
+  async ({ id, contact }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(`/contacts/${contact.id}`, contact);
+      const response = await axios.patch(`/contacts/${id}`, contact);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
 );
- */

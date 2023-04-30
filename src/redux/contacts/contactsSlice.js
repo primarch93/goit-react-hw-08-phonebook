@@ -3,8 +3,7 @@ import {
   fetchContacts,
   deleteContact,
   addContact,
-  /*   toggleFavorite,
-  editContact, */
+  editContact,
 } from './operations';
 import { logOut } from '../auth/operations';
 
@@ -18,8 +17,6 @@ const contactsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        console.log(action.payload);
-        console.log(state);
         state.items = action.payload;
         state.isLoading = false;
         state.error = null;
@@ -31,7 +28,6 @@ const contactsSlice = createSlice({
         );
         state.items.splice(index, 1);
         state.error = null;
-        /* state.items.filter(contact => contact.id !== action.payload); */
       })
       .addCase(addContact.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -43,14 +39,6 @@ const contactsSlice = createSlice({
         state.error = null;
         state.isLoading = false;
       })
-      /* .addCase(toggleFavorite.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.error = null;
-        const index = state.items.findIndex(
-          item => item.id === action.payload.id
-        );
-        state.items.splice(index, 1, action.payload);
-      })
       .addCase(editContact.fulfilled, (state, action) => {
         state.isLoading = false;
         const index = state.items.findIndex(
@@ -58,11 +46,10 @@ const contactsSlice = createSlice({
         );
         state.items.splice(index, 1, action.payload);
         state.error = null;
-      }) */
+      })
       .addMatcher(
         isAnyOf(
-          /*  editContact.pending,
-          toggleFavorite.pending, */
+           editContact.pending,
           addContact.pending,
           deleteContact.pending,
           fetchContacts.pending
@@ -73,8 +60,7 @@ const contactsSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          /*  editContact.rejected,
-          toggleFavorite.rejected, */
+           editContact.rejected,
           addContact.rejected,
           deleteContact.rejected,
           fetchContacts.rejected

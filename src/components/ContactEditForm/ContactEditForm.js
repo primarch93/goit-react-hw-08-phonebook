@@ -1,4 +1,4 @@
-/* import { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editContact } from '../../redux/contacts/operations';
 import { selectContacts } from 'redux/contacts/selectors';
@@ -48,7 +48,7 @@ export function ContactEditForm({ contact }) {
       );
     }
 
-    dispatch(editContact({ id: contact.id, name, number }));
+    dispatch(editContact({ id: contact.id, contact: { name, number } }));
     event.currentTarget.reset();
     handleClose();
   };
@@ -124,11 +124,5 @@ ContactEditForm.propTypes = {
     name: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    colors: PropTypes.shape({
-      color: PropTypes.string,
-      backgroundColor: PropTypes.string,
-    }),
   }).isRequired,
 };
- */
