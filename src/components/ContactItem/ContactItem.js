@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
   deleteContact,
-  editContact,
-  toggleFavorite,
+  /* editContact, */
+  /* toggleFavorite, */
 } from '../../redux/contacts/operations';
 import { RiDeleteBinLine } from 'react-icons/ri';
 /* import { IoIosCall } from 'react-icons/io'; */
-import { BsStar, BsStarFill } from 'react-icons/bs';
+/* import { BsStar, BsStarFill } from 'react-icons/bs'; */
 import { getInitials } from '../../utils/getInitials';
-import { ContactEditForm } from '.././ContactEditForm/ContactEditForm';
-import { getRandomColor } from '../../utils/getRandomColor';
+/* import { ContactEditForm } from '.././ContactEditForm/ContactEditForm'; */
+/* import { getRandomColor } from '../../utils/getRandomColor'; */
 import {
   TableRow,
   Avatar,
@@ -34,7 +34,7 @@ export const ContactItem = ({ contacts }) => {
     );
   };
 
-  const onFavorite = contact => {
+  /* const onFavorite = contact => {
     dispatch(toggleFavorite({ ...contact, isFavorite: !contact.isFavorite }));
     if (contact.isFavorite) {
       toast.success(
@@ -51,28 +51,30 @@ export const ContactItem = ({ contacts }) => {
         favorites!
       </p>
     );
-  };
+  }; */
 
-  contacts.map(contact => {
+  /* contacts.map(contact => {
     if (!contact.colors) {
       dispatch(editContact({ ...contact, colors: getRandomColor() }));
     }
     return contact;
-  });
+  }); */
 
   return contacts.map(contact => {
-    const currentContact = contacts.find(
+    /*  const currentContact = contacts.find(
       updatedContact => updatedContact.id === contact.id
-    );
+    ); */
     return (
       <TableRow key={contact.id}>
         <NameCeil>
-          <Avatar style={contact.colors}>{getInitials(contact.name)}</Avatar>
+          <Avatar /* style={contact.colors} */>
+            {getInitials(contact.name)}
+          </Avatar>
           {contact.name}
         </NameCeil>
         <NumberCeil>{contact.number}</NumberCeil>
         <ActionCeil>
-          <Button type="button" onClick={() => onFavorite(contact)}>
+          {/*           <Button type="button" onClick={() => onFavorite(contact)}>
             {currentContact.isFavorite ? (
               <BsStarFill size={24} color="#ffd800" />
             ) : (
@@ -80,7 +82,7 @@ export const ContactItem = ({ contacts }) => {
             )}
           </Button>
 
-          <ContactEditForm contact={contact} />
+          <ContactEditForm contact={contact} /> */}
 
           {/* <Link href={`tel: ${contact.number}`}>
             <IoIosCall size={24} color="green" />
@@ -105,11 +107,11 @@ ContactItem.propTypes = {
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
+      /* isFavorite: PropTypes.bool.isRequired,
       colors: PropTypes.shape({
         color: PropTypes.string,
         backgroundColor: PropTypes.string,
-      }),
+      }), */
     }).isRequired
   ).isRequired,
 };

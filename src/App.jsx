@@ -1,53 +1,54 @@
-import { useEffect } from 'react';
+import { useEffect, lazy } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts } from './redux/contacts/selectors';
-import { fetchContacts } from 'redux/contacts/operations';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { refreshUser } from 'redux/auth/operations';
+import { selectIsRefreshing } from 'redux/auth/selectors';
+import { Route, Routes } from 'react-router-dom';
+import { PrivateRoute } from './components/PrivateRoute';
+import { RestrictedRoute } from './components/RestrictedRoute';
 import { Layout } from 'components/Layout/Layout';
-import { Section } from 'components/Section/Section';
-import { AddContactForm } from './components/AddContactForm/AddContactForm';
-import { ContactList } from './components/ContactList/ContactList';
-import { ContactFilter } from './components/ContactFilter/ContactFilter';
-import { Container, Title } from './components/Section/Section.styled';
+import { Loader } from 'components/Skeleton';
+
+const HomePage = lazy(() => import('./pages/HomePage'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const ContactsPage = lazy(() => import('./pages/ContactsPage'));
 
 export const App = () => {
-  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    const controller = new AbortController();
-    dispatch(fetchContacts(controller.signal));
-
-    return () => controller.abort();
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    <Layout>
-      <Section title="Phonebook">
-        <AddContactForm />
-      </Section>
-
-      {contacts.length > 0 && (
-        <Container>
-          <Title
-            style={{
-              display: 'flex',
-              flexWrap: 'nowrap',
-              gap: '20px',
-              margin: '0 auto',
-              justifyContent: 'end',
-              alignItems: 'baseline',
-            }}
-          >
-            Contacts
-            <ContactFilter />
-          </Title>
-          <ContactList contacts={contacts} />
-        </Container>
-      )}
-
-      <ToastContainer newestOnTop={true} autoClose={3000} />
-    </Layout>
+  return isRefreshing ? (
+    <Loader />
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegisterPage />}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+          }
+        />
+      </Route>
+    </Routes>
   );
 };

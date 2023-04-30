@@ -1,4 +1,4 @@
-import { useState } from 'react';
+/* import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editContact } from '../../redux/contacts/operations';
 import { selectContacts } from 'redux/contacts/selectors';
@@ -48,7 +48,7 @@ export function ContactEditForm({ contact }) {
       );
     }
 
-    dispatch(editContact({ ...contact, name, number }));
+    dispatch(editContact({ id: contact.id, name, number }));
     event.currentTarget.reset();
     handleClose();
   };
@@ -131,3 +131,4 @@ ContactEditForm.propTypes = {
     }),
   }).isRequired,
 };
+ */

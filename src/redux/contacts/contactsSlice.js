@@ -3,27 +3,26 @@ import {
   fetchContacts,
   deleteContact,
   addContact,
-  toggleFavorite,
-  editContact,
+  /*   toggleFavorite,
+  editContact, */
 } from './operations';
-
-const contactsInitialState = {
-  items: [],
-  isLoading: false,
-  error: null,
-};
+import { logOut } from '../auth/operations';
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: contactsInitialState,
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        return {
-          items: action.payload,
-          isLoading: false,
-          error: null,
-        };
+        console.log(action.payload);
+        console.log(state);
+        state.items = action.payload;
+        state.isLoading = false;
+        state.error = null;
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -39,7 +38,12 @@ const contactsSlice = createSlice({
         state.items.push(action.payload);
         state.error = null;
       })
-      .addCase(toggleFavorite.fulfilled, (state, action) => {
+      .addCase(logOut.fulfilled, state => {
+        state.items = [];
+        state.error = null;
+        state.isLoading = false;
+      })
+      /* .addCase(toggleFavorite.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
         const index = state.items.findIndex(
@@ -54,11 +58,11 @@ const contactsSlice = createSlice({
         );
         state.items.splice(index, 1, action.payload);
         state.error = null;
-      })
+      }) */
       .addMatcher(
         isAnyOf(
-          editContact.pending,
-          toggleFavorite.pending,
+          /*  editContact.pending,
+          toggleFavorite.pending, */
           addContact.pending,
           deleteContact.pending,
           fetchContacts.pending
@@ -69,8 +73,8 @@ const contactsSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          editContact.rejected,
-          toggleFavorite.rejected,
+          /*  editContact.rejected,
+          toggleFavorite.rejected, */
           addContact.rejected,
           deleteContact.rejected,
           fetchContacts.rejected
